@@ -10,11 +10,53 @@ import {
     addEdge,
     ReactFlowProvider,
     BackgroundVariant,
+    SelectionMode,
     applyNodeChanges,
     applyEdgeChanges,
+    ConnectionLineType,
     useReactFlow
 } from '@xyflow/react';
-const Canvasbuilder = () => {
+import './reactflow.css';
+import '@xyflow/react/dist/style.css';
+import { debounce } from 'lodash-es';
+
+const DEBOUNCE_DELAY = 500; 
+const nodeTypes = {
+    initializer:"",
+ 
+  }
+   const edgeTypes = {
+    converse: "ConverseEdge",
+  };
+const useDebouncedUpdate = (projectId) => {
+    const [isDirty, setIsDirty] = useState(false);
+    
+    const { toObject } = useReactFlow();
+    const initialLoad = useRef(true);
+  
+    const debouncedUpdate = debounce((flow) => {
+     
+      setIsDirty(false);
+    }, DEBOUNCE_DELAY);
+  
+    useEffect(() => {
+      if (initialLoad.current) {
+        initialLoad.current = false;
+        return;
+      }
+      if (isDirty) {
+        debouncedUpdate(toObject());
+      }
+  
+      return () => {
+        debouncedUpdate.cancel();
+      };
+    }, [isDirty, toObject, debouncedUpdate]);
+  
+    return { setIsDirty, debouncedUpdate };
+}
+
+const Canvasbuilder = ({ projectId }) => {
     const [showmodal, setshowmodal] = useState(false);
     const [modalname, setmodalname] = useState("")
     const [darkmode, setdarkmode] = useState(false);
@@ -146,52 +188,52 @@ const Canvasbuilder = () => {
                 parentId: undefined,
                 style: undefined,
             }
-            const groupnode=nodes.find(
-                (n)=>
-                n.type==='groupchat'&&
-                position.x>n.position.x&&
-                position.x<n.position.x+(n.width??0)&&
-                position.y>n.position.y&&
-                position.y<n.position.y+(n.height??0)
+            const groupnode = nodes.find(
+                (n) =>
+                    n.type === 'groupchat' &&
+                    position.x > n.position.x &&
+                    position.x < n.position.x + (n.width ?? 0) &&
+                    position.y > n.position.y &&
+                    position.y < n.position.y + (n.height ?? 0)
             )
             setnodes(
-                (nds)=>{
-                    const updatednodes=nds.map((n)=>({
+                (nds) => {
+                    const updatednodes = nds.map((n) => ({
                         ...n,
-                        selected:false,
-                        data:n.type==='groupchat'?{...n.data,hoveredGroupId: null }
-                        : n.data,
+                        selected: false,
+                        data: n.type === 'groupchat' ? { ...n.data, hoveredGroupId: null }
+                            : n.data,
                     }))
-                if (groupnode) {
-                    const updatednode={
-                        ...newnode,
-                        position:{
-                            x:position.x-groupnode.position.x,
-                            y:position.y-groupnode.position.y
-                        },
-                        parentId:groupnode.id,
-                        ...(data.id==='groupchat'?{
-                            style: {
-                                width: Math.min(300, groupnode.width - 50),
-                                height: Math.min(200, groupnode.height - 50),
-                              },
-                        }:{ })
+                    if (groupnode) {
+                        const updatednode = {
+                            ...newnode,
+                            position: {
+                                x: position.x - groupnode.position.x,
+                                y: position.y - groupnode.position.y
+                            },
+                            parentId: groupnode.id,
+                            ...(data.id === 'groupchat' ? {
+                                style: {
+                                    width: Math.min(300, groupnode.width - 50),
+                                    height: Math.min(200, groupnode.height - 50),
+                                },
+                            } : {})
+                        }
+                        const groupindex = updatesnodes.findIndex(
+                            (n) => n.id === groupnode.id
+                        )
+                        if (groupindex !== -1) {
+                            updatednodes.slice(groupindex + 1, 0, updatednode)
+                            return updatednodes
+                        }
                     }
-                    const groupindex=updatesnodes.findIndex(
-                        (n)=>n.id===groupnode.id
-                    )
-                    if(groupindex!==-1){
-                    updatednodes.slice(groupindex+1,0,updatednode)
-                    return updatednodes
-                }
-                }
-                return [...updatednodes,newnode]
+                    return [...updatednodes, newnode]
                 })
         }
-        [nodes,screenToFlowPosition,setnodes,flowParent]
+        [nodes, screenToFlowPosition, setnodes, flowParent]
     }
-    const ondragover=(event)=>{
-        (event)=>{
+    const ondragover = (event) => {
+        (event) => {
             event.preventDefault()
             event.dataTransfer.dropEffect = 'move';
             if (!flowParent.current) return;
@@ -200,83 +242,88 @@ const Canvasbuilder = () => {
                 x: event.clientX - flowbounds.left,
                 y: event.clientY - flowbounds.top
             })
-            const groupnode=nodes.find(
-                (n)=>
-                n.type==='groupchat'&&
-                position.x>n.position.x&&
-                position.x<n.position.x+(n.width??0)&&
-                position.y>n.position.y&&
-                position.y<n.position.y+(n.height??0)
+            const groupnode = nodes.find(
+                (n) =>
+                    n.type === 'groupchat' &&
+                    position.x > n.position.x &&
+                    position.x < n.position.x + (n.width ?? 0) &&
+                    position.y > n.position.y &&
+                    position.y < n.position.y + (n.height ?? 0)
             )
             setnodes(
-                nodes.map((node)=>{
-                    if (node.type==='groupchat'){
+                nodes.map((node) => {
+                    if (node.type === 'groupchat') {
                         return {
                             ...node,
-                            data:{
+                            data: {
                                 ...node.data,
-                                hoveredGroupId:groupnode?.id||null
+                                hoveredGroupId: groupnode?.id || null
                             }
                         }
                     }
                     return node
                 })
-               )
-               [nodes,screenToFlowPosition,flowParent]
+            )
+            [nodes, screenToFlowPosition, flowParent]
         }
     }
-    const ondragleave=()=>{
-        setnodes((nodes)=>
-            nodes.map((node)=>{
-                if (node.type==='groupchat'){
+    const ondragleave = () => {
+        setnodes((nodes) =>
+            nodes.map((node) => {
+                if (node.type === 'groupchat') {
                     return {
                         ...node,
-                        data:{
+                        data: {
                             ...node.data,
-                            hoveredGroupId:groupnode?.id||null
+                            hoveredGroupId: groupnode?.id || null
                         }
                     }
                 }
                 return node
             })
-           );
+        );
 
     }
     return (
-        <ReactFlowProvider>
-            <ReactFlow
-            nodes={nodes}
-            onNodesChange={onNodesChange}
-            edges={edges}
-            onEdgesChange={onEdgesChange}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            onConnect={onconnect}
-            connectionLineType={ConnectionLineType.Bezier}
-            connectionLineStyle={{ strokeWidth: 2, stroke: 'darkgreen' }}
-            onDragOver={ondragover}
-            onDragLeave={ondragleave}
-            onDrop={ondrop}
-            panOnScroll
-            selectionOnDrag
-            selectionMode={SelectionMode.Partial}
-            fitView
-            fitViewOptions={{ maxZoom: 1 }}
-            attributionPosition="bottom-right"                
-            />
+        <div style={{ height: "100vh" }}>
+
+
+        <ReactFlow
+                
+                nodes={nodes}
+                onNodesChange={onNodesChange}
+                edges={edges}
+                onEdgesChange={onEdgesChange}
+                nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
+                onConnect={onconnect}
+                connectionLineType={ConnectionLineType.Bezier}
+                connectionLineStyle={{ strokeWidth: 20, stroke: 'darkgreen' }}
+                onDragOver={ondragover}
+                onDragLeave={ondragleave}
+                onDrop={ondrop}
+                panOnScroll
+                selectionOnDrag
+                selectionMode={SelectionMode.Partial}
+                fitView
+                fitViewOptions={{ maxZoom: 1 }}
+                attributionPosition="bottom-right"
+        >
             <Background
                 variant={BackgroundVariant.Lines}
                 gap={50}
                 size={4}
-                color="rgba(128,128,128,0.1)"
+                color="rgba(5,5,5,0.4)"
             />
-            <Controls
-                fitViewOptions={{ maxZoom: 1 }}
-                showInteractive={false}
-                position="bottom-left"
-                className="flex"
-            />
-        </ReactFlowProvider>
+        <Controls
+          fitViewOptions={{ maxZoom: 100 }}
+          showInteractive={false}
+          position="bottom-left"
+          className="flex"
+        />
+          
+        </ReactFlow>
+        </div>
     )
 }
 export default Canvasbuilder
