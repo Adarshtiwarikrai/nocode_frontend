@@ -1,7 +1,6 @@
 
-import { NodeProps } from '@xyflow/react';
 import { ComponentType } from 'react';
-import { GenericNode } from '@/flow/node/generic-node';
+import { GenericNode } from '../shared/generic-node';
 
 export const InitializerNode = ({
   id,

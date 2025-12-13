@@ -1,6 +1,6 @@
 // useUser.ts
 import { useEffect } from 'react';
-import useUserStore from '@/store/user';
+import useUserStore from '../store/user';
 
 export function useUser() {
   const { user, loading, error, fetchUser } = useUserStore();

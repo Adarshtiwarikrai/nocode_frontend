@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useRef } from 'react';
 import useUserStore from '../store/user';
 import useProjectStore from '../store/project';
 import useSWR from 'swr';//what does this do ??
-const initialEdges = [
+export const initialEdges = [
     {
       id: '1001-1',
       source: '1001',
@@ -16,7 +16,7 @@ const initialEdges = [
       type: 'converse',
     },
   ];
-  const initialNodes = [
+export const initialNodes = [
     {
       id: '1001',
       type: 'initializer',
@@ -109,7 +109,7 @@ export function useProjects(){
     const deleteProject=useProjectStore((state)=>state.deleteProject)
     const updateProject=useProjectStore((state)=>state.updateProject)
     const activeProjectId=useProjectStore((state)=>state.activeProjectId)
-    const setActiveProjectId=useProjectStore((state)=>state.setactiveProjectId)
+    const setActiveProjectId=useProjectStore((state)=>state.setActiveProjectId)
     const getProjectById = useProjectStore((state) => state.getProjectById);
     const prevDataRef = useRef(data);
     useEffect(() => {
@@ -190,8 +190,9 @@ export function useProjects(){
         [projects, deleteProject, setProjects, mutate]
       );
       const [isUpdating, setIsUpdating] = useState(false);
-  const handleUpdateProject = useCallback(
+    const handleUpdateProject = useCallback(
     async (id, project) => {
+    
       setIsUpdating(true);
       const previousProject = projects.find((p) => p.id === id);
       if (!previousProject) {
@@ -249,7 +250,7 @@ export function useProjects(){
 export function useProject(id) {
     const { isLoading, isError, updateProject, isUpdating, getProjectById } =
       useProjects();
-  
+     console.log("thisisisworking",getProjectById(id))
     return {
       project: getProjectById(id),
       isLoading,

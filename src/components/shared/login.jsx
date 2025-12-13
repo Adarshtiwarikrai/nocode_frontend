@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { toast } from '@/hooks/use-toast';
-import useUserStore from '../../hook/user';
+import { toast } from '../../hooks/toast';
+import useUserStore from '../../store/user';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');

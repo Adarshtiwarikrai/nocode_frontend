@@ -5,6 +5,7 @@ import { cn } from '../../lib/utils';
 import { Card } from '../ui/card';
 import { Icons } from '../ui/icons';
 import {useProjects} from "../../hooks/project"
+import { Button } from '../ui/button';
 export const Projectloading=()=>{
     return (
         <div className="flex w-full flex-wrap justify-center gap-4">
@@ -31,7 +32,7 @@ export const ProjectBlock=({ project, className, index })=>{
   
   const navigate = useNavigate();
   const { deleteProject, isDeleting } = useProjects();
-
+  const [showPublishDialog, setShowPublishDialog] = useState(false);
   
   const onDelete = async () => {
     try {

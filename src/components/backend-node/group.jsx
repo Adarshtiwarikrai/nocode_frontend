@@ -1,7 +1,7 @@
 
 import { ComponentType } from 'react';
 import {
-  NodeProps,
+
   NodeResizer,
   Handle,
   Position,
@@ -9,9 +9,9 @@ import {
   useReactFlow,
   NodeResizeControl,
 } from '@xyflow/react';
-import { cn } from '@/lib/utils';
-import { Icons } from '@/components/icons';
-import { Button } from '@/components/ui/button';
+import { cn } from '../../lib/utils';
+import { Icons } from '../ui/icons';
+import { Button } from '../ui/button';
 
 
 

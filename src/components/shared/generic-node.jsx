@@ -2,8 +2,7 @@
 import {
     Handle,
     Position,
-    HandleType,
-    NodeProps,
+   
     NodeToolbar,
     useReactFlow,
   } from '@xyflow/react';
@@ -11,7 +10,7 @@ import {
 import { Card } from '../ui/card';
 import { Icons } from '../ui/icons';
 import { Button } from '../ui/button';
-
+import { getNodeIcon, setNodeData } from '../../lib/flow' ;
 export const GenericNode= ({
     id,
     data,

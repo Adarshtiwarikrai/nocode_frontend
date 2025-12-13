@@ -1,5 +1,5 @@
-import { NodeProps } from '@xyflow/react';
-import { GenericNode } from '@/flow/node/generic-node';
+
+import { GenericNode } from '../shared/generic-node';
 import { ComponentType } from 'react';
 
 export const ConversableAgent= ({

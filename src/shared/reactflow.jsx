@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useEffect, useRef, memo } from 'react';
 import { genId } from '../lib/id';
-import Canvasbuilder from './canvas'
+import {FlowCanvas} from './canvas'
 import {
     ReactFlow,
     Background,
@@ -16,9 +16,13 @@ import {
     useReactFlow
 } from '@xyflow/react';
 const Floweditor=(projectId  )=>{
+    const [mode, setMode] = useState('flow');
+    const handleModeChange = (mode) => {
+        setMode(mode);
+      };
     return (
         <div style={{ height: "100vh" }}>
-         <Canvasbuilder projectId={1}/>
+         <FlowCanvas projectId={projectId} onModeChange={handleModeChange}  />
         </div>
          
        
