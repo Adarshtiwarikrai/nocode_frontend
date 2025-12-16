@@ -2,10 +2,11 @@ import { InitializerNode } from '../components/backend-node/initizlizer';
 import { ConversableAgent } from '../components/backend-node/agent';
 import { GroupNode } from '../components/backend-node/group';
 import { NoteNode } from '../components/backend-node/note';
-
+import { UserProxyAgent } from '../components/backend-node/user';
 import { genId } from './id'; 
 import { Icons } from '../components/ui/icons'; 
 import { ConverseEdge } from '../components/shared/edge';
+
 
 /* =========================
    Node & Edge Types
@@ -15,7 +16,8 @@ export const nodeTypes = {
   initializer: InitializerNode,
   conversable: ConversableAgent,
   groupchat: GroupNode,
-
+  user:UserProxyAgent,
+  note:NoteNode
 };
 
 export const edgeTypes = {
@@ -50,6 +52,13 @@ export const basicNodes = [
     class_type: 'ConversableAgent',
   },
   {
+    id: 'user',
+    icon: Icons.user,
+    name: 'User',
+    description: 'A User Proxy Agent',
+    class_type: 'UserProxyAgent',
+  },
+  {
     id: 'groupchat',
     icon: Icons.group,
     name: 'Group',
@@ -76,6 +85,7 @@ const allNodes = [...basicNodes];
 ========================= */
 
 export const getNodeIcon = (type) => {
+  console.log("adfadafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",type)
   const nodeMeta = allNodes.find((node) => node.id === type);
   return nodeMeta?.icon || Icons.question;
 };

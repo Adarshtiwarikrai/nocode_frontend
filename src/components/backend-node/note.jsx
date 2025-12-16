@@ -2,7 +2,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import {
   useReactFlow,
- 
   NodeResizeControl,
   NodeToolbar,
   Position,
@@ -13,7 +12,7 @@ import { setNodeData } from '../../lib/flow';
 import { Textarea } from '../ui/textarea';
 import { Icons } from '../ui/icons';
 import { Button } from '../ui/button';
-
+import { Markdown } from '../shared/markdown';
 export const NoteNode = memo(
   ({ id, data, selected, type, ...props }) => {
     const [editing, setEditing] = useState(false);
@@ -62,9 +61,9 @@ export const NoteNode = memo(
               className="w-full h-full cursor-text"
               onClick={() => setEditing(true)}
             >
-              <div className="text-left text-sm">
+              <Markdown className="text-left text-sm">
                 {data.content ?? 'Click to add note...'}
-              </div>
+              </Markdown>
             </div>
           )}
         </div>

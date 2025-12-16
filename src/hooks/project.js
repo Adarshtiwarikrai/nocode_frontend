@@ -36,7 +36,7 @@ export const initialNodes = [
       data: {
         name: 'User',
         id: 'user',
-        class_type: 'UserProxyAgent',
+        class_type: 'User',
         human_input_mode: 'NEVER',
         termination_msg: 'TERMINATE',
         enable_code_execution: true,
@@ -47,21 +47,33 @@ export const initialNodes = [
     },
     {
       id: '2',
-      type: 'assistant',
+      type: 'conversable',
       data: {
-        name: 'Assistant',
-        id: 'assistant',
-        class_type: 'AssistantAgent',
+        name: 'Conversable',
+        id: 'conversable',
+        class_type: 'ConversableAgent',
         max_consecutive_auto_reply: 10,
         tools: [],
       },
       position: { x: 811, y: 216 },
     },
     {
+      id: '3',
+      type: 'conversable',
+      data: {
+        name: 'Conversable',
+        id: 'conversable',
+        class_type: 'ConversableAgent',
+        max_consecutive_auto_reply: 10,
+        tools: [],
+      },
+      position: { x: 811, y: 214 },
+    },
+    {
       id: '998',
       type: 'note',
       data: {
-        name: 'Note',
+        name: 'note',
         id: 'note',
         class_type: 'Note',
         content:

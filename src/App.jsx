@@ -10,7 +10,10 @@ import LoginPage from './components/shared/login'
 import RegisterPage from './components/shared/register'
 import ProjectsPage from './shared/page/project'
 import ProjectDetailPage from './shared/page/projectbuild'
-
+import ToolsPage from './shared/page/tools'
+import Page from './shared/page/toolspage'
+import { Editor } from './shared/page/resize'
+import ProjectResize from './shared/page/projectresize'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -23,10 +26,12 @@ function App() {
           <Routes>
            
             <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:id" element={<ProjectDetailPage />} />
+            <Route path="/projects/:id" element={<ProjectResize />} />
+            <Route path="/tools" element={<ToolsPage />} />
+            <Route path="/tools/:id" element={<Page />} />
             <Route path="/auth/login" element={<LoginPage />} />
             <Route path="/" element={<RegisterPage />} />
-         
+            <Route path="/resize" element={<RegisterPage />} />
           </Routes>
         </main>
      

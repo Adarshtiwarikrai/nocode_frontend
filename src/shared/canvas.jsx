@@ -24,7 +24,7 @@ import { useProject } from '../hooks/project';
 import { Icons } from '../components/ui/icons';
 import { genId } from '../lib/id';
 import { debounce } from 'lodash-es';
-import { edgeTypes,nodeTypes } from '../lib/flow';
+import { edgeTypes,nodeTypes,isConversable } from '../lib/flow';
 
 
 const DEBOUNCE_DELAY = 500; 
@@ -67,7 +67,7 @@ export const FlowCanvas = ({
   const [edges, setEdges] = useEdgesState([]);
   const { setIsDirty } = useDebouncedUpdate(projectId);
   const flowParent = useRef(null);
-  // Suppress error code 002
+
   const store = useStoreApi();
   useEffect(() => {
     if (import.meta.env.DEV) {
@@ -228,7 +228,9 @@ export const FlowCanvas = ({
   );
 
   const onEdgesChange = useCallback(
+   
     (changes) => {
+      console.log("trying to start to connect")
       if (changes.some((change) => change.type !== 'select')) {
         setIsDirty(true);
       }
@@ -408,6 +410,8 @@ export const FlowCanvas = ({
           type: 'converse',
         };
       }
+
+      console.log("trying to connect")
       return addEdge(newEdge, eds);
     });
     setIsDirty(true);
