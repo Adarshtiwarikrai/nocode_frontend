@@ -207,9 +207,9 @@ export const FlowCanvas = ({
                   absolutePosition.y <= n.position.y + (n.height ?? 0)
               );
 
-              // Handle grouping - if inside a group
+          
               if (groupNode) {
-                // Node is entering a group
+
                 draggedNode.parentId = groupNode.id;
                 draggedNode.position = {
                   x: absolutePosition.x - groupNode.position.x,
@@ -217,7 +217,6 @@ export const FlowCanvas = ({
                 };
                 draggedNode.extent = 'parent';
 
-                // Ensure group node is before its children
                 nextNodes = nextNodes.filter((n) => n.id !== draggedNode.id);
                 const groupIndex = nextNodes.findIndex(
                   (n) => n.id === groupNode.id
@@ -459,6 +458,7 @@ export const FlowCanvas = ({
           draggable: true,
           selectable: true,
           focusable: true,
+          resizable: true,
         };
         const updatedNodes = nds.map((n) => ({ ...n, selected: false }));
         return [...updatedNodes, newNode];

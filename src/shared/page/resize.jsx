@@ -35,7 +35,7 @@ import {
         <div className="flex h-screen w-screen overflow-hidden">
         <ResizablePanelGroup direction="horizontal" className="flex h-full">
           {/* -------- Flow Panel -------- */}
-          <ResizablePanel defaultSize={170} minSize={130}>
+          <ResizablePanel defaultSize={50} minSize={30}>
             <Tabs defaultValue="flow" className="flex flex-col h-full ">
               <TabsList className="border-b rounded-none">
                 <TabsTrigger value="flow" className="flex items-center gap-2">
@@ -54,7 +54,7 @@ import {
           <ResizableHandle withHandle />
   
           {/* -------- Chat Panel -------- */}
-          <ResizablePanel defaultSize={170} minSize={25}>
+          <ResizablePanel defaultSize={20} minSize={15}>
             <Tabs defaultValue="chat" className="flex flex-col h-full">
               <TabsList className="border-b rounded-none">
                 <TabsTrigger value="chat" className="flex items-center gap-2">
