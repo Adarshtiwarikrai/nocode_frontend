@@ -12,12 +12,12 @@
   
   /* Hide default resize handles */
   .react-flow__resize-control.handle:not(.custom-resize-handle) {
-    display: none;
+ 
   }
   
   /* Hide default selection bounding box */
   .react-flow__resize-control.line {
-    display: none;
+   
   }
   
   .react-flow__handle-left {

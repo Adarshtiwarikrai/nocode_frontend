@@ -13,6 +13,7 @@ export const InitializerNode = ({
       data={data}
       {...props}
       ports={[{ type: 'source', name: '' }]}
+  
     />
   );
 };

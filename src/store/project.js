@@ -60,7 +60,7 @@ const useProjectState = create()(
 
       getProjectById: (id) => {
         const project = id
-          ? get().projects.find((project) => project.id === id.projectId)
+          ? get().projects.find((project) => project.id === id)
           : undefined;
 
         console.log('[getProjectById]', { id, project });

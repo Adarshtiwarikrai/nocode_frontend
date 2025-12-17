@@ -9,7 +9,7 @@ export default function ProjectResize() {
   const { id } = useParams();
   const projectId = parseInt(id, 10);
   const { projects, isLoading, activeProjectId, setActiveProjectId } = useProjects();
-  console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",projectId)
+  console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",projects,projectId)
   useEffect(() => {
     if (projectId !== activeProjectId) {
       setActiveProjectId(projectId);

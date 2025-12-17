@@ -32,6 +32,7 @@ const DEBOUNCE_DELAY = 500;
 const useDebouncedUpdate = (projectId) => {
   const [isDirty, setIsDirty] = useState(false);
   const { updateProject } = useProject(projectId);
+ 
   const { toObject } = useReactFlow();
   const initialLoad = useRef(true);
 
@@ -62,6 +63,7 @@ export const FlowCanvas = ({
   onModeChange,
 }) => {
   const { project, isLoading, isError } = useProject(projectId);
+  console.log(project,projectId,"thisthisthisthis")
   const { screenToFlowPosition } = useReactFlow();
   const [nodes, setNodes] = useNodesState([]);
   const [edges, setEdges] = useEdgesState([]);
@@ -97,8 +99,14 @@ export const FlowCanvas = ({
 
   const onNodesChange = useCallback(
     (changes) => {
+      console.log("changessssssssssssss",changes);
       setNodes((nds) => {
+        
         let nextNodes = applyNodeChanges(changes, nds);
+
+        if (changes.some((c) => c.type === 'dimensions')) {
+          setIsDirty(true);
+        }
 
         // Handle node dragging for grouping/ungrouping
         changes.forEach((change) => {

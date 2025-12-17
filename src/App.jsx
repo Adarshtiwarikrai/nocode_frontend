@@ -31,7 +31,7 @@ function App() {
             <Route path="/tools/:id" element={<Page />} />
             <Route path="/auth/login" element={<LoginPage />} />
             <Route path="/" element={<RegisterPage />} />
-            <Route path="/resize" element={<RegisterPage />} />
+           
           </Routes>
         </main>
      

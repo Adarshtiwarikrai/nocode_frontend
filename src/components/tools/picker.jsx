@@ -2,14 +2,14 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-  } from '@/components/ui/popover';
+  } from '../ui/popover';
   import { Button } from '../ui/button';
   import { Icons } from '../ui/icons';
   import { PopoverClose } from '@radix-ui/react-popover';
   import { Card } from '../ui/card';
   import { useTools } from '../../hooks/tool';
-  import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
-  import { Avatar, AvatarFallback, AvatarImage } from '../ui/';
+  import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tab';
+  import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
   
   export function ToolPicker({
     onAddTool,

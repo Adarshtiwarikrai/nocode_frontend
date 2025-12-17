@@ -10,6 +10,7 @@ import {
   import { Icons } from "../../components/ui/icons";
   import { useChats } from '../../hooks/chat';
   import { useEdges, useNodes } from '@xyflow/react';
+  import { FlowConfig } from "../../components/shared/config";
   export const Editor = ({ projectId }) => {
     const [mode, setMode] = useState('flow');
     const { chats } = useChats();
@@ -35,7 +36,7 @@ import {
         <ResizablePanelGroup direction="horizontal" className="flex h-full">
           {/* -------- Flow Panel -------- */}
           <ResizablePanel defaultSize={170} minSize={130}>
-            <Tabs defaultValue="flow" className="flex flex-col h-full">
+            <Tabs defaultValue="flow" className="flex flex-col h-full ">
               <TabsList className="border-b rounded-none">
                 <TabsTrigger value="flow" className="flex items-center gap-2">
                   <Icons.project className="w-4 h-4" />
@@ -60,8 +61,18 @@ import {
                   <Icons.chat className="w-4 h-4" />
                   <span className="hidden md:block text-sm">Chat</span>
                 </TabsTrigger>
+                <TabsTrigger value="config" className="flex items-center gap-2">
+                <Icons.config className="w-4 h-4" />
+                <span className="hidden md:block text-sm">Properties</span>
+              </TabsTrigger>
               </TabsList>
-  
+              <TabsContent value="config" className="flex-1 overflow-auto">
+              <FlowConfig
+                projectId={projectId}
+                nodeId={selectedNode?.id}
+                edgeId={selectedEdge?.id}
+              />
+            </TabsContent>
               <TabsContent value="chat" className="flex-1 overflow-auto mt-0">
                 <ChatPane projectId={projectId} chatId={activeChatId} />
               </TabsContent>
