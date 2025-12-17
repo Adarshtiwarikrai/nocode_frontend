@@ -52,8 +52,10 @@ export const GenericNode = ({
       <div className="flex flex-col items-center gap-2 flex-grow">
         <NodeIcon className="w-10 h-10" />
         <span className="text-sm font-bold">{data.name}</span>
-
-
+       <div>
+       {children}
+       </div>
+       
       </div>
 
       {ports.map(({ type, name }) => (

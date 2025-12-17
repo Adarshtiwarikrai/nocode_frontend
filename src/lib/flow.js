@@ -6,7 +6,7 @@ import { UserProxyAgent } from '../components/backend-node/user';
 import { genId } from './id'; 
 import { Icons } from '../components/ui/icons'; 
 import { ConverseEdge } from '../components/shared/edge';
-
+import ApiNode from '../components/frontend-node/apinode'
 
 /* =========================
    Node & Edge Types
@@ -17,6 +17,7 @@ export const nodeTypes = {
   conversable: ConversableAgent,
   groupchat: GroupNode,
   user:UserProxyAgent,
+  api:ApiNode,
   note:NoteNode
 };
 
@@ -64,6 +65,15 @@ export const basicNodes = [
     name: 'Group',
     description: 'Group several agents together',
     class_type: 'GroupChat',
+    width: 400,
+    height: 300,
+  },
+  {
+    id: 'api',
+    icon: Icons.note,
+    name: 'Api',
+    description: 'node for api calling',
+    class_type: 'ApiNode',
     width: 400,
     height: 300,
   },

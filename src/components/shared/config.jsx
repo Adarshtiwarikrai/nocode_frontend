@@ -36,6 +36,9 @@ export const FlowConfig = ({ nodeId }) => {
 
         case 'conversable':
             return <ConversableAgentConfig nodeId={nodeId} data={node.data} />
+        case 'api':
+            return <ConversableAgentConfig nodeId={nodeId} data={node.data} />
+
 
         default:
             return (

@@ -70,6 +70,18 @@ export const initialNodes = [
       position: { x: 811, y: 214 },
     },
     {
+      id: '4',
+      type: 'api',
+      data: {
+        name: 'Api',
+        id: 'api',
+        class_type: 'ApiNode',
+        max_consecutive_auto_reply: 10,
+        tools: [],
+      },
+      position: { x: 271, y: 214 },
+    },
+    {
       id: '998',
       type: 'note',
       data: {
