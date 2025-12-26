@@ -15,6 +15,50 @@ export const initialEdges = [
       animated: true,
       type: 'converse',
     },
+    // New node edges
+    {
+      id: '2-text',
+      source: '2',
+      target: 'text-1',
+    },
+    {
+      id: 'text-input',
+      source: 'text-1',
+      target: 'input-1',
+    },
+    {
+      id: 'input-delay',
+      source: 'input-1',
+      target: 'delay-1',
+    },
+    {
+      id: 'delay-assistant',
+      source: 'delay-1',
+      target: 'assistant-1',
+    },
+    {
+      id: 'assistant-condition',
+      source: 'assistant-1',
+      target: 'condition-1',
+    },
+    {
+      id: 'condition-quickreply',
+      source: 'condition-1',
+      target: 'quickreply-1',
+      sourceHandle: 'if',
+    },
+    {
+      id: 'quickreply-container',
+      source: 'quickreply-1',
+      target: 'container-1',
+      sourceHandle: 'option-0',
+    },
+    {
+      id: 'container-branch',
+      source: 'container-1',
+      target: 'branch-1',
+      sourceHandle: 'option-0',
+    },
   ];
 export const initialNodes = [
     {
@@ -95,6 +139,130 @@ export const initialNodes = [
       width: 400,
       height: 200,
       selected: false,
+    },
+    // New nodes from src copy
+    {
+      id: 'text-1',
+      type: 'text',
+      data: {
+        name: 'Text',
+        id: 'text',
+        class_type: 'TextNode',
+        text: 'Welcome to the flow! This is a text node.',
+      },
+      position: { x: 1350, y: 216 },
+      width: 150,
+      height: 100,
+    },
+    {
+      id: 'input-1',
+      type: 'input',
+      data: {
+        name: 'Input',
+        id: 'input',
+        class_type: 'InputNode',
+        variableName: 'userInput',
+        prompt: 'Please enter your input:',
+      },
+      position: { x: 1600, y: 216 },
+      width: 150,
+      height: 100,
+    },
+    {
+      id: 'delay-1',
+      type: 'delay',
+      data: {
+        name: 'Delay',
+        id: 'delay',
+        class_type: 'DelayNode',
+        delayMs: 2000,
+      },
+      position: { x: 1850, y: 216 },
+      width: 150,
+      height: 100,
+    },
+    {
+      id: 'assistant-1',
+      type: 'assistant',
+      data: {
+        name: 'Assistant',
+        id: 'assistant',
+        class_type: 'AssistantNode',
+      },
+      position: { x: 2100, y: 216 },
+      width: 150,
+      height: 100,
+    },
+    {
+      id: 'condition-1',
+      type: 'condition',
+      data: {
+        name: 'Condition',
+        id: 'condition',
+        class_type: 'ConditionNode',
+        label: 'If-Else',
+        ifCondition: 'userInput === "yes"',
+        elseIfConditions: [
+          { condition: 'userInput === "maybe"' },
+        ],
+        elseNode: true,
+        connections: {},
+      },
+      position: { x: 2350, y: 216 },
+      width: 220,
+      height: 160,
+    },
+    {
+      id: 'quickreply-1',
+      type: 'quickreply',
+      data: {
+        name: 'Quick Reply',
+        id: 'quickreply',
+        class_type: 'QuickReplyNode',
+        label: 'Quick Reply',
+        message: 'Choose an option:',
+        options: [
+          { text: 'Option 1' },
+          { text: 'Option 2' },
+          { text: 'Option 3' },
+        ],
+        connections: {},
+      },
+      position: { x: 2600, y: 216 },
+      width: 200,
+      height: 180,
+    },
+    {
+      id: 'container-1',
+      type: 'container',
+      data: {
+        name: 'Container',
+        id: 'container',
+        class_type: 'ContainerNode',
+        label: 'Container',
+        icon: '📦',
+        message: 'This is a container with quick reply options',
+        options: [
+          { text: 'Continue', id: 'opt1' },
+          { text: 'Cancel', id: 'opt2' },
+        ],
+      },
+      position: { x: 2850, y: 216 },
+      width: 250,
+      height: 200,
+    },
+    {
+      id: 'branch-1',
+      type: 'branch',
+      data: {
+        name: 'Branch',
+        id: 'branch',
+        class_type: 'BranchNode',
+        label: 'IF Branch',
+        condition: 'Continue selected',
+        branchType: 'if',
+      },
+      position: { x: 3150, y: 216 },
     },
   ];
   

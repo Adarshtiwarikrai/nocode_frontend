@@ -442,6 +442,10 @@ export const FlowCanvas = ({
           y: center.y + randInt(100),
         });
 
+        // Ensure nodes have explicit dimensions to prevent auto-resize
+        const defaultWidth = nodeMeta.width || 150;
+        const defaultHeight = nodeMeta.height || 100;
+        
         const newNode = {
           id: `${nodeMeta.id}_${newId}`,
           type: nodeMeta.id,
@@ -452,8 +456,8 @@ export const FlowCanvas = ({
             class_type: nodeMeta.class_type,
             ...nodeMeta.data, // Spread any additional data properties
           },
-          width: nodeMeta.width,
-          height: nodeMeta.height,
+          width: defaultWidth,
+          height: defaultHeight,
           selected: true,
           draggable: true,
           selectable: true,

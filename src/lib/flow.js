@@ -6,7 +6,17 @@ import { UserProxyAgent } from '../components/backend-node/user';
 import { genId } from './id'; 
 import { Icons } from '../components/ui/icons'; 
 import { ConverseEdge } from '../components/shared/edge';
-import ApiNode from '../components/frontend-node/apinode'
+import ApiNode from '../components/frontend-node/apinode';
+import { 
+  TextNode,
+  InputNode,
+  DelayNode,
+  AssistantNode,
+  ConditionNode,
+  QuickReplyNode,
+  ContainerNode,
+  BranchNode,
+} from '../components/shared/nodes';
 
 /* =========================
    Node & Edge Types
@@ -16,9 +26,18 @@ export const nodeTypes = {
   initializer: InitializerNode,
   conversable: ConversableAgent,
   groupchat: GroupNode,
-  user:UserProxyAgent,
-  api:ApiNode,
-  note:NoteNode
+  user: UserProxyAgent,
+  api: ApiNode,
+  note: NoteNode,
+  // New nodes from src copy
+  text: TextNode,
+  input: InputNode,
+  delay: DelayNode,
+  assistant: AssistantNode,
+  condition: ConditionNode,
+  quickreply: QuickReplyNode,
+  container: ContainerNode,
+  branch: BranchNode,
 };
 
 export const edgeTypes = {
@@ -86,9 +105,75 @@ export const basicNodes = [
     width: 400,
     height: 200,
   },
+  // New nodes from src copy
+  {
+    id: 'text',
+    icon: Icons.post,
+    name: 'Text',
+    description: 'Display text message',
+    class_type: 'TextNode',
+  },
+  {
+    id: 'input',
+    icon: Icons.edit,
+    name: 'Input',
+    description: 'Get user input',
+    class_type: 'InputNode',
+  },
+  {
+    id: 'delay',
+    icon: Icons.refresh,
+    name: 'Delay',
+    description: 'Add delay to flow',
+    class_type: 'DelayNode',
+  },
+  {
+    id: 'assistant',
+    icon: Icons.robot,
+    name: 'Assistant',
+    description: 'Assistant response node',
+    class_type: 'AssistantNode',
+  },
+  {
+    id: 'condition',
+    icon: Icons.question,
+    name: 'Condition',
+    description: 'Conditional branching',
+    class_type: 'ConditionNode',
+    width: 200,
+    height: 100,
+  },
+  {
+    id: 'quickreply',
+    icon: Icons.chat,
+    name: 'Quick Reply',
+    description: 'Quick reply options',
+    class_type: 'QuickReplyNode',
+    width: 200,
+    height: 120,
+  },
+  {
+    id: 'container',
+    icon: Icons.package,
+    name: 'Container',
+    description: 'Container for multiple options',
+    class_type: 'ContainerNode',
+    width: 220,
+    height: 140,
+  },
+  {
+    id: 'branch',
+    icon: Icons.gitFork,
+    name: 'Branch',
+    description: 'Flow branch',
+    class_type: 'BranchNode',
+  },
 ];
 
 const allNodes = [...basicNodes];
+
+// Advanced nodes (can be used to separate more complex nodes)
+export const advancedNodes = [];
 
 /* =========================
    Utilities

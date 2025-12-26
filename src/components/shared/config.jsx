@@ -3,6 +3,15 @@ import { useReactFlow } from '@xyflow/react'
 import { Icons } from '../ui/icons'
 import { UserConfig } from '../backend-node/config/userconfig'
 import { ConversableAgentConfig } from '../backend-node/config/config'
+import { ApiNodeConfig } from '../frontend-node/apinodeconfig'
+import { ConditionNodeConfig } from '../shared/nodes/ConditionNodeConfig'
+import { QuickReplyNodeConfig } from '../shared/nodes/QuickReplyNodeConfig'
+import { ContainerNodeConfig } from '../shared/nodes/ContainerNodeConfig'
+import { TextNodeConfig } from '../shared/nodes/TextNodeConfig'
+import { DelayNodeConfig } from '../shared/nodes/DelayNodeConfig'
+import { AssistantNodeConfig } from '../shared/nodes/AssistantNodeConfig'
+import { InputNodeConfig } from '../shared/nodes/InputNodeConfig'
+import { BranchNodeConfig } from '../shared/nodes/BranchNodeConfig'
 export const FlowConfig = ({ nodeId }) => {
     const { getNode } = useReactFlow()
 
@@ -28,7 +37,12 @@ export const FlowConfig = ({ nodeId }) => {
         )
     }
 
-    const type = node.data?.id
+    const type = node.data?.id || node.type
+    
+    // Debug: log node type for troubleshooting
+    if (type === 'api') {
+        console.log('API node detected:', { nodeId, type, data: node.data })
+    }
 
     switch (type) {
         case 'user':
@@ -37,7 +51,23 @@ export const FlowConfig = ({ nodeId }) => {
         case 'conversable':
             return <ConversableAgentConfig nodeId={nodeId} data={node.data} />
         case 'api':
-            return <ConversableAgentConfig nodeId={nodeId} data={node.data} />
+            return <ApiNodeConfig nodeId={nodeId} data={node.data} />
+        case 'condition':
+            return <ConditionNodeConfig nodeId={nodeId} data={node.data} />
+        case 'quickreply':
+            return <QuickReplyNodeConfig nodeId={nodeId} data={node.data} />
+        case 'container':
+            return <ContainerNodeConfig nodeId={nodeId} data={node.data} />
+        case 'text':
+            return <TextNodeConfig nodeId={nodeId} data={node.data} />
+        case 'delay':
+            return <DelayNodeConfig nodeId={nodeId} data={node.data} />
+        case 'assistant':
+            return <AssistantNodeConfig nodeId={nodeId} data={node.data} />
+        case 'input':
+            return <InputNodeConfig nodeId={nodeId} data={node.data} />
+        case 'branch':
+            return <BranchNodeConfig nodeId={nodeId} data={node.data} />
 
 
         default:
